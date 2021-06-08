@@ -2,9 +2,6 @@
 #ifndef LOGGER_HPP
 #define LOGGER_HPP
 
-// C++
-#include <iostream>
-
 class logger
 {
 public:
