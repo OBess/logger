@@ -10,13 +10,12 @@ class file_creator : public creator
 {
 public:
    file_creator(const std::string &file_path) : m_file_path(file_path) {}
-
-protected:
    logger *getLogger() const override
    {
       return new file_logger(m_file_path);
    }
 
+private:
    std::string m_file_path;
 };
 

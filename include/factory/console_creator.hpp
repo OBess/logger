@@ -8,7 +8,7 @@
 
 class console_creator : public creator
 {
-protected:
+public:
    logger *getLogger() const override
    {
       return new console_logger();
