@@ -16,7 +16,7 @@ DEBUG_MODE = Debug
 RELEASE_MODE = Release
 
 BUILD_MODE = $(DEBUG_MODE)
-AUTO_RUN = $(TRUE)
+AUTO_RUN = $(FALSE)
 
 # Flags for two build modes
 Release_FLAGS = -O3 -std=c++17 -s -DNDEBUG
@@ -49,6 +49,7 @@ gdb:
 
 # Remove folders with executable files
 clean: rm_debug rm_release
+	@rm -f log.txt
 
 rm_debug:
 	@rm -rf $(DEBUG_MODE)
