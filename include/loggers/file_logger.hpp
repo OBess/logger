@@ -14,13 +14,19 @@
 class file_logger : public logger
 {
 public:
-   file_logger(const std::string &file_path) : m_file_path(file_path) {}
-   ~file_logger() = default;
+   file_logger(const std::string &file_path) : m_file_path(file_path), m_level(1)
+   {
+      file.open(m_file_path, std::ios_base::app);
+   }
+
+   ~file_logger()
+   {
+      file.close();
+   };
 
 private:
    void open() override
    {
-      file.open(m_file_path, std::ios_base::app);
    }
 
    void write(const std::string &message) override
@@ -33,14 +39,12 @@ private:
 
    void close() override
    {
-      file.close();
+      file.flush();
    }
 
    std::ofstream file;
    std::string m_file_path;
-   static int m_level;
+   int m_level;
 };
-
-int file_logger::m_level = 1;
 
 #endif //FILE_LOGGER_HPP
