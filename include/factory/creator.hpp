@@ -2,9 +2,6 @@
 #ifndef CREATOR_HPP
 #define CREATOR_HPP
 
-// C++
-#include <string>
-
 // Custom
 #include "../loggers/logger.hpp"
 

@@ -3,7 +3,7 @@
 #define FILE_LOGGER_HPP
 
 // C++
-#include <iostream>
+#include <string>
 #include <fstream>
 #include <chrono>
 #include <ctime>
