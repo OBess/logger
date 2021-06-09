@@ -22,5 +22,9 @@ int main()
    file->Log("Did something");
    file->Log("End work");
 
+   // Clear data
+   delete console;
+   delete file;
+
    return EXIT_SUCCESS;
 }
