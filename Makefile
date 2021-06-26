@@ -1,6 +1,6 @@
 # Created by Dima Sushchenko
-# Date: 01.06.2021
-# Last Update: 06.06.2021
+# Creation Date: 01.06.2021
+# Last Update: 16.06.2021
 # Makefile to build a project from .cpp files.
 #
 
@@ -27,6 +27,10 @@ Debug_FLAGS = -O0 -std=c++17 -g -Wall
 EXECUTABLE = main
 SOURCES = $(shell find ./include -name '*.cpp')
 
+# TEST - filename for testing
+TEST = tests
+TEST_FOLDER_NAME = Test
+
 # Run build
 all: build
 ifeq ($(AUTO_RUN),$(TRUE))
@@ -43,13 +47,25 @@ build:
 run:
 	@$(BUILD_MODE)/$(EXECUTABLE)
 
+test:
+	@mkdir -p $(TEST_FOLDER_NAME)
+	$(CXX) $($(DEBUG_MODE)_FLAGS) $(TEST).cpp $(SOURCES) -o $(TEST_FOLDER_NAME)/$(TEST)
+	@$(TEST_FOLDER_NAME)/$(TEST)
+	@echo "makefile: \033[;32mTesting successfully!\033[0m"
+
+test_gdb:
+	@gdb $(TEST_FOLDER_NAME)/$(TEST)
+
 # Debugging program
 gdb:
 	@gdb $(DEBUG_MODE)/$(EXECUTABLE)
 
+# Check memory leak
+valgrind:
+	@valgrind $(args) $(TEST_FOLDER_NAME)/$(TEST)
+
 # Remove folders with executable files
-clean: rm_debug rm_release
-	@rm -f log.txt
+clean: rm_debug rm_release rm_test
 
 rm_debug:
 	@rm -rf $(DEBUG_MODE)
@@ -57,4 +73,7 @@ rm_debug:
 rm_release:
 	@rm -rf $(RELEASE_MODE)
 
-.PHONY: all build run test gdb clean rm_debug rm_release
+rm_test:
+	@rm -rf $(TEST_FOLDER_NAME)
+
+.PHONY: all build run test test_gdb gdb valgrid clean rm_debug rm_release rm_test
